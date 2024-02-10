@@ -1,7 +1,25 @@
 function computerPlay() {
-    const choices = ['Rock', 'Paper', 'Scissors'];
+    const choices = ['rock', 'paper', 'scissors'];
     const randomIndex = Math.floor(Math.random() * 3);
     return choices[randomIndex];
+  }
+  
+  function determineWinner(playerSelection, computerSelection) {
+    if (playerSelection === computerSelection) {
+      return 'tie';
+    }
+  
+    const outcomes = {
+      'rock': 'scissors',
+      'paper': 'rock',
+      'scissors': 'paper'
+    };
+  
+    if (outcomes[playerSelection] === computerSelection) {
+      return 'player';
+    } else {
+      return 'computer';
+    }
   }
   
   function playRound(playerSelection, computerSelection) {
@@ -19,16 +37,14 @@ function computerPlay() {
     console.log(`You chose ${playerSelection}.`);
     console.log(`Computer chose ${computerSelection}.`);
   
-    if (playerSelection === computerSelection) {
-      return "It's a tie!";
-    } else if (
-      (playerSelection === 'rock' && computerSelection === 'scissors') ||
-      (playerSelection === 'paper' && computerSelection === 'rock') ||
-      (playerSelection === 'scissors' && computerSelection === 'paper')
-    ) {
+    const winner = determineWinner(playerSelection, computerSelection);
+  
+    if (winner === 'player') {
       return `You win! ${playerSelection} beats ${computerSelection}.`;
-    } else {
+    } else if (winner === 'computer') {
       return `You lose! ${computerSelection} beats ${playerSelection}.`;
+    } else {
+      return "It's a tie!";
     }
   }
   
@@ -36,7 +52,7 @@ function computerPlay() {
     let playerScore = 0;
     let computerScore = 0;
   
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 5; ) {
       const playerSelection = prompt("Enter your choice: Rock, Paper, or Scissors");
       const computerSelection = computerPlay();
       const result = playRound(playerSelection, computerSelection);
@@ -49,9 +65,10 @@ function computerPlay() {
         } else if (result.includes("lose")) {
           computerScore++;
         }
+  
+        i++;
       } else {
-        console.error("An error occurred during the round. Please try again.");
-        // Don't return here, just continue to the next iteration
+        console.error("Invalid input. Please try again.");
       }
     }
   
@@ -67,4 +84,3 @@ function computerPlay() {
   }
   
   game();
-  
