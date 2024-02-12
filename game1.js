@@ -54,6 +54,10 @@ function computerPlay() {
   
     for (let i = 0; i < 5; ) {
       const playerSelection = prompt("Enter your choice: Rock, Paper, or Scissors");
+      if (playerSelection === null) {
+        console.log("Game canceled. Goodbye!");
+        return;
+    }
       const computerSelection = computerPlay();
       const result = playRound(playerSelection, computerSelection);
   
